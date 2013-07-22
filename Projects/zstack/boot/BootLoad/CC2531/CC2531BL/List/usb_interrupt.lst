@@ -1,0 +1,392 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V8.10.1.10194/W32 for 8051         18/Jan/2013  10:11:29 #
+# Copyright 2004-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  near                                               #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data                                               #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a #
+#                          \Components\hal\target\CC2530USB\usb\library\cc253 #
+#                          1\usb_interrupt.c                                  #
+#    Command line       =  "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 #
+#                          a\Components\hal\target\CC2530USB\usb\library\cc25 #
+#                          31\usb_interrupt.c" -D HAL_SB_BOOT_CODE -lC        #
+#                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 #
+#                          a\Projects\zstack\boot\BootLoad\CC2531\CC2531BL\Li #
+#                          st\" -lA "D:\Texas Instruments\GIT_CORD\ZStack-CC2 #
+#                          530-2.5.1a\Projects\zstack\boot\BootLoad\CC2531\CC #
+#                          2531BL\List\" -o "D:\Texas                         #
+#                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects #
+#                          \zstack\boot\BootLoad\CC2531\CC2531BL\Obj\" -e     #
+#                          --debug --core=plain --dptr=16,1                   #
+#                          --data_model=large --code_model=near               #
+#                          --calling_convention=xdata_reentrant               #
+#                          --place_constants=data --nr_virtual_regs 16 -I     #
+#                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 #
+#                          a\Projects\zstack\boot\BootLoad\CC2531\..\Source\" #
+#                           -I "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2 #
+#                          .5.1a\Projects\zstack\boot\BootLoad\CC2531\source\ #
+#                          " -I "D:\Texas Instruments\GIT_CORD\ZStack-CC2530- #
+#                          2.5.1a\Projects\zstack\boot\BootLoad\CC2531\..\..\ #
+#                          ..\..\..\COMPONENTS\HAL\INCLUDE\" -I "D:\Texas     #
+#                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects #
+#                          \zstack\boot\BootLoad\CC2531\..\..\..\..\..\COMPON #
+#                          ENTS\HAL\TARGET\_COMMON\CC2530\" -I "D:\Texas      #
+#                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects #
+#                          \zstack\boot\BootLoad\CC2531\..\..\..\..\..\COMPON #
+#                          ENTS\HAL\TARGET\CC2530USB\" -I "D:\Texas           #
+#                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects #
+#                          \zstack\boot\BootLoad\CC2531\..\..\..\..\..\COMPON #
+#                          ENTS\HAL\TARGET\CC2530USB\usb\library\" -I         #
+#                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 #
+#                          a\Projects\zstack\boot\BootLoad\CC2531\..\..\..\.. #
+#                          \..\COMPONENTS\HAL\TARGET\CC2530USB\usb\library\cc #
+#                          2531\" -I "D:\Texas Instruments\GIT_CORD\ZStack-CC #
+#                          2530-2.5.1a\Projects\zstack\boot\BootLoad\CC2531\. #
+#                          .\..\..\..\..\COMPONENTS\HAL\TARGET\CC2530USB\usb\ #
+#                          class_cdc\" -Ohz --require_prototypes              #
+#    List file          =  D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a #
+#                          \Projects\zstack\boot\BootLoad\CC2531\CC2531BL\Lis #
+#                          t\usb_interrupt.lst                                #
+#    Object file        =  D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a #
+#                          \Projects\zstack\boot\BootLoad\CC2531\CC2531BL\Obj #
+#                          \usb_interrupt.r51                                 #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Components\hal\target\CC2530USB\usb\library\cc2531\usb_interrupt.c
+      1          /***********************************************************************************
+      2          
+      3              Filename:     usb_interrupt.c
+      4          
+      5              Description:  USB library interrupt initialisation and ISR.
+      6          
+      7          ***********************************************************************************/
+      8          
+      9          /// \addtogroup module_usb_interrupt
+     10          /// @{
+     11          #define USBINTERRUPT_C ///< Modifies the behavior of "EXTERN" in usb_interrupt.h
+     12          #include "usb_firmware_library_headers.h"
+
+   \                                 In  segment DATA_Z, align 1, keep-with-next
+   \   USBIRQ_DATA __data usbirqData
+   \                     usbirqData:
+   \   000000                DS 5
+   \   000005                REQUIRE __INIT_DATA_Z
+
+   \                                 In  segment SFR_AN, at 0x8b
+   \   unsigned char volatile __sfr P2IFG
+   \                     P2IFG:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x9d
+   \   unsigned char volatile __sfr SLEEPSTA
+   \                     SLEEPSTA:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xe8
+   \   union <unnamed> volatile __sfr _A_IRCON2
+   \                     _A_IRCON2:
+   \   000000                DS 1
+     13          #include "usb_board_cfg.h"
+     14          #include "hal_flash.h"
+     15          #include "hal_led.h"
+     16          
+     17          
+     18          /** \brief Initializes the \ref module_usb_interrupt module
+     19           *
+     20           * This function should be called after the \ref module_usb_framework module has been initialized.
+     21           * Use interrupt group priority control (refer to the CC2531 datasheet) to adjust the priority of the
+     22           * USB interrupt relative to other interrupts.
+     23           *
+     24           * \param[in]       irqMask
+     25           *     A bit mask containing USBIRQ_EVENT bits for all events that shall be reported
+     26           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+     27          void usbirqInit(uint16 irqMask)
+   \                     usbirqInit:
+     28          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+     29              // Initialize variables
+     30              usbirqData.eventMask = 0x0000;
+   \   000005   75..00       MOV     usbirqData+0x0,#0x0
+   \   000008   75..00       MOV     usbirqData+0x1,#0x0
+     31              usbirqData.inSuspend = FALSE;
+   \   00000B   75..00       MOV     usbirqData + 2,#0x0
+     32              usbirqData.irqMask = irqMask;
+   \   00000E   8A..         MOV     usbirqData + 3+0x0,R2
+   \   000010   8B..         MOV     usbirqData + 3+0x1,R3
+     33          
+     34              // Select which IRQ flags to handle
+     35              USBCIE = irqMask;
+   \   000012   EA           MOV     A,R2
+   \   000013   90620B       MOV     DPTR,#0x620b
+   \   000016   F0           MOVX    @DPTR,A
+     36              USBIIE = irqMask >> 4;
+   \   000017   8A..         MOV     ?V0 + 0,R2
+   \   000019   8B..         MOV     ?V0 + 1,R3
+   \   00001B   7404         MOV     A,#0x4
+   \   00001D   78..         MOV     R0,#?V0 + 0
+   \   00001F   12....       LCALL   ?US_SHR
+   \   000022   E5..         MOV     A,?V0 + 0
+   \   000024   906207       MOV     DPTR,#0x6207
+   \   000027   F0           MOVX    @DPTR,A
+     37              USBOIE = (irqMask >> 9) & 0x3E;
+   \   000028   8A..         MOV     ?V0 + 0,R2
+   \   00002A   8B..         MOV     ?V0 + 1,R3
+   \   00002C   7409         MOV     A,#0x9
+   \   00002E   78..         MOV     R0,#?V0 + 0
+   \   000030   12....       LCALL   ?US_SHR
+   \   000033   E5..         MOV     A,?V0 + 0
+   \   000035   543E         ANL     A,#0x3e
+   \   000037   906209       MOV     DPTR,#0x6209
+   \   00003A   F0           MOVX    @DPTR,A
+     38          
+     39              HAL_USB_INT_CLEAR();
+   \   00003B                REQUIRE ?Subroutine0
+   \   00003B                REQUIRE P2IFG
+   \   00003B                REQUIRE _A_IRCON2
+   \   00003B                ; // Fall through to label ?Subroutine0
+     40              HAL_USB_INT_ENABLE();
+     41          
+     42          } // usbirqInit
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   758B00       MOV     0x8b,#0x0
+   \   000003   C2E8         CLR     0xe8.0
+   \   000005   7F02         MOV     R7,#0x2
+   \   000007   02....       LJMP    ?FUNC_LEAVE_XDATA
+     43          
+     44          
+     45          
+     46          /** \brief USB interrupt handler
+     47           *
+     48           * Clears the P2 interrupt flag and converts all USB interrupt flags into events.
+     49           * The interrupt also lets \ref usbsuspEnter() break from the suspend loop.
+     50           */
+     51          #if defined HAL_SB_BOOT_CODE
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+     52          void usbirqHandler(void)
+   \                     usbirqHandler:
+     53          #else
+     54          #pragma vector=P2INT_VECTOR
+     55          __interrupt void usbirqHandler(void)
+     56          #endif
+     57          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+     58             uint8 usbcif;
+     59          
+     60             // First make sure that the crystal oscillator is stable
+     61             while (!CC2530_IS_XOSC_STABLE());
+   \                     ??usbirqHandler_0:
+   \   000005   E59D         MOV     A,0x9d
+   \   000007   A2E6         MOV     C,0xE0 /* A   */.6
+   \   000009   50FA         JNC     ??usbirqHandler_0
+     62          
+     63             // Special handling for reset interrupts
+     64             usbcif = USBCIF;
+   \   00000B   906206       MOV     DPTR,#0x6206
+   \   00000E   E0           MOVX    A,@DPTR
+   \   00000F   FA           MOV     R2,A
+     65             if (usbcif & USBCIF_RSTIF) {
+   \   000010   A2E2         MOV     C,0xE0 /* A   */.2
+   \   000012   5035         JNC     ??usbirqHandler_1
+     66          
+     67                 // All interrupts (except suspend) are by default enabled by hardware, so
+     68                 // re-initialize the enable bits to avoid unwanted interrupts
+     69                 USBCIE = usbirqData.irqMask;
+   \   000014   A8..         MOV     R0,usbirqData + 3+0x0
+   \   000016   E8           MOV     A,R0
+   \   000017   90620B       MOV     DPTR,#0x620b
+   \   00001A   F0           MOVX    @DPTR,A
+     70                 USBIIE = usbirqData.irqMask >> 4;
+   \   00001B   F5..         MOV     ?V0 + 0,A
+   \   00001D   85....       MOV     ?V0 + 1,usbirqData + 3+0x1
+   \   000020   7404         MOV     A,#0x4
+   \   000022   78..         MOV     R0,#?V0 + 0
+   \   000024   12....       LCALL   ?US_SHR
+   \   000027   E5..         MOV     A,?V0 + 0
+   \   000029   906207       MOV     DPTR,#0x6207
+   \   00002C   F0           MOVX    @DPTR,A
+     71                 USBOIE = (usbirqData.irqMask >> 9) & 0x3E;
+   \   00002D   85....       MOV     ?V0 + 0,usbirqData + 3+0x0
+   \   000030   85....       MOV     ?V0 + 1,usbirqData + 3+0x1
+   \   000033   7409         MOV     A,#0x9
+   \   000035   78..         MOV     R0,#?V0 + 0
+   \   000037   12....       LCALL   ?US_SHR
+   \   00003A   E5..         MOV     A,?V0 + 0
+   \   00003C   543E         ANL     A,#0x3e
+   \   00003E   906209       MOV     DPTR,#0x6209
+   \   000041   F0           MOVX    @DPTR,A
+     72          
+     73                 // Enable suspend mode when suspend signaling is detected on the bus
+     74                 USBPOW |= USBPOW_SUSPEND_EN;
+   \   000042   906201       MOV     DPTR,#0x6201
+   \   000045   E0           MOVX    A,@DPTR
+   \   000046   D2E0         SETB    0xE0 /* A   */.0
+   \   000048   F0           MOVX    @DPTR,A
+     75             }
+     76          
+     77             // Record events (keeping existing)
+     78             usbirqData.eventMask |= (uint16) usbcif;
+   \                     ??usbirqHandler_1:
+   \   000049   78..         MOV     R0,#usbirqData
+   \   00004B   EA           MOV     A,R2
+   \   00004C   46           ORL     A,@R0
+   \   00004D   F6           MOV     @R0,A
+     79             usbirqData.eventMask |= (uint16) USBIIF << 4;
+   \   00004E   906202       MOV     DPTR,#0x6202
+   \   000051   E0           MOVX    A,@DPTR
+   \   000052   F5..         MOV     ?V0 + 0,A
+   \   000054   75..00       MOV     ?V0 + 1,#0x0
+   \   000057   7404         MOV     A,#0x4
+   \   000059   78..         MOV     R0,#?V0 + 0
+   \   00005B   12....       LCALL   ?S_SHL
+   \   00005E   78..         MOV     R0,#usbirqData
+   \   000060   E5..         MOV     A,?V0 + 0
+   \   000062   46           ORL     A,@R0
+   \   000063   F6           MOV     @R0,A
+   \   000064   08           INC     R0
+   \   000065   E5..         MOV     A,?V0 + 1
+   \   000067   46           ORL     A,@R0
+   \   000068   F6           MOV     @R0,A
+     80             usbirqData.eventMask |= (uint16) USBOIF << 9;
+   \   000069   906204       MOV     DPTR,#0x6204
+   \   00006C   E0           MOVX    A,@DPTR
+   \   00006D   F5..         MOV     ?V0 + 0,A
+   \   00006F   75..00       MOV     ?V0 + 1,#0x0
+   \   000072   7409         MOV     A,#0x9
+   \   000074   78..         MOV     R0,#?V0 + 0
+   \   000076   12....       LCALL   ?S_SHL
+   \   000079   78..         MOV     R0,#usbirqData + 1
+   \   00007B   E5..         MOV     A,?V0 + 1
+   \   00007D   46           ORL     A,@R0
+   \   00007E   F6           MOV     @R0,A
+     81          
+     82             // If we get a suspend event, we should always enter suspend mode. We must,
+     83             // however be sure that we exit the suspend loop upon resume or reset
+     84             // signaling.
+     85             if (usbcif & USBCIF_SUSPENDIF) {
+   \   00007F   EA           MOV     A,R2
+   \   000080   A2E0         MOV     C,0xE0 /* A   */.0
+   \   000082   5003         JNC     ??usbirqHandler_2
+     86                usbirqData.inSuspend = TRUE;
+   \   000084   75..01       MOV     usbirqData + 2,#0x1
+     87             }
+     88             if (usbcif & (USBCIF_RSTIF | USBCIF_RESUMEIF)) {
+   \                     ??usbirqHandler_2:
+   \   000087   7406         MOV     A,#0x6
+   \   000089   5A           ANL     A,R2
+   \   00008A   6003         JZ      ??usbirqHandler_3
+     89                usbirqData.inSuspend = FALSE;
+   \   00008C   75..00       MOV     usbirqData + 2,#0x0
+     90             }
+     91             if (P2IFG & P2IFG_DPIF) {
+   \                     ??usbirqHandler_3:
+   \   00008F   E58B         MOV     A,0x8b
+   \   000091   A2E5         MOV     C,0xE0 /* A   */.5
+   \   000093   5006         JNC     ??usbirqHandler_4
+     92                // Resume interrupt detected on D+ line while in suspend
+     93                P2IFG = ~P2IFG_DPIF;
+   \   000095   758BDF       MOV     0x8b,#-0x21
+     94                usbirqData.inSuspend = FALSE;
+   \   000098   75..00       MOV     usbirqData + 2,#0x0
+     95             }
+     96          
+     97             // Handle event which need immediate processing
+     98             usbirqHookProcessEvents();
+   \                     ??usbirqHandler_4:
+   \   00009B                ; Setup parameters for call to function usbirqHookProcessEvents
+   \   00009B   12....       LCALL   usbirqHookProcessEvents
+     99          
+    100             // Clear the interrupt
+    101             HAL_USB_INT_CLEAR();
+   \   00009E   02....       LJMP    ?Subroutine0
+   \   0000A1                REQUIRE SLEEPSTA
+   \   0000A1                REQUIRE P2IFG
+   \   0000A1                REQUIRE _A_IRCON2
+    102          
+    103          } // usbirqHandler
+    104          
+    105          //@}
+    106          
+    107          /*
+    108          +------------------------------------------------------------------------------
+    109          |  Copyright 2008-2009 Texas Instruments Incorporated. All rights reserved.
+    110          |
+    111          |  IMPORTANT: Your use of this Software is limited to those specific rights
+    112          |  granted under the terms of a software license agreement between the user who
+    113          |  downloaded the software, his/her employer (which must be your employer) and
+    114          |  Texas Instruments Incorporated (the "License"). You may not use this Software
+    115          |  unless you agree to abide by the terms of the License. The License limits
+    116          |  your use, and you acknowledge, that the Software may not be modified, copied
+    117          |  or distributed unless embedded on a Texas Instruments microcontroller or used
+    118          |  solely and exclusively in conjunction with a Texas Instruments radio
+    119          |  frequency transceiver, which is integrated into your product. Other than for
+    120          |  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+    121          |  works of, modify, distribute, perform, display or sell this Software and/or
+    122          |  its documentation for any purpose.
+    123          |
+    124          |  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+    125          |  PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+    126          |  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+    127          |  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+    128          |  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+    129          |  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+    130          |  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES INCLUDING
+    131          |  BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+    132          |  CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+    133          |  SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+    134          |  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+    135          |
+    136          |  Should you have any questions regarding your right to use this Software,
+    137          |  contact Texas Instruments Incorporated at www.TI.com.
+    138          |
+    139          +------------------------------------------------------------------------------
+    140          */
+
+   Maximum stack usage in bytes:
+
+     Function                     ISTACK PSTACK XSTACK
+     --------                     ------ ------ ------
+     usbirqHandler                    0      0      9
+       -> usbirqHookProcessEvents     0      0     18
+     usbirqInit                       0      0      9
+
+
+   Segment part sizes:
+
+     Function/Label Bytes
+     -------------- -----
+     usbirqData        5
+     P2IFG             1
+     SLEEPSTA          1
+     _A_IRCON2         1
+     usbirqInit       59
+     ?Subroutine0     10
+     usbirqHandler   161
+
+ 
+   5 bytes in segment DATA_Z
+ 230 bytes in segment NEAR_CODE
+   3 bytes in segment SFR_AN
+ 
+ 230 bytes of CODE memory
+   5 bytes of DATA memory (+ 3 bytes shared)
+
+Errors: none
+Warnings: none

@@ -1,0 +1,297 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V8.10.1.10194/W32 for 8051         18/Jan/2013  10:11:28 #
+# Copyright 2004-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Core               =  plain                                              #
+#    Code model         =  near                                               #
+#    Data model         =  large                                              #
+#    Calling convention =  xdata reentrant                                    #
+#    Constant location  =  data                                               #
+#    Dptr setup         =  1,16                                               #
+#    Source file        =  D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a #
+#                          \Components\hal\target\CC2530USB\usb\library\cc253 #
+#                          1\usb_suspend.c                                    #
+#    Command line       =  "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 #
+#                          a\Components\hal\target\CC2530USB\usb\library\cc25 #
+#                          31\usb_suspend.c" -D HAL_SB_BOOT_CODE -lC          #
+#                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 #
+#                          a\Projects\zstack\boot\BootLoad\CC2531\CC2531BL\Li #
+#                          st\" -lA "D:\Texas Instruments\GIT_CORD\ZStack-CC2 #
+#                          530-2.5.1a\Projects\zstack\boot\BootLoad\CC2531\CC #
+#                          2531BL\List\" -o "D:\Texas                         #
+#                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects #
+#                          \zstack\boot\BootLoad\CC2531\CC2531BL\Obj\" -e     #
+#                          --debug --core=plain --dptr=16,1                   #
+#                          --data_model=large --code_model=near               #
+#                          --calling_convention=xdata_reentrant               #
+#                          --place_constants=data --nr_virtual_regs 16 -I     #
+#                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 #
+#                          a\Projects\zstack\boot\BootLoad\CC2531\..\Source\" #
+#                           -I "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2 #
+#                          .5.1a\Projects\zstack\boot\BootLoad\CC2531\source\ #
+#                          " -I "D:\Texas Instruments\GIT_CORD\ZStack-CC2530- #
+#                          2.5.1a\Projects\zstack\boot\BootLoad\CC2531\..\..\ #
+#                          ..\..\..\COMPONENTS\HAL\INCLUDE\" -I "D:\Texas     #
+#                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects #
+#                          \zstack\boot\BootLoad\CC2531\..\..\..\..\..\COMPON #
+#                          ENTS\HAL\TARGET\_COMMON\CC2530\" -I "D:\Texas      #
+#                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects #
+#                          \zstack\boot\BootLoad\CC2531\..\..\..\..\..\COMPON #
+#                          ENTS\HAL\TARGET\CC2530USB\" -I "D:\Texas           #
+#                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects #
+#                          \zstack\boot\BootLoad\CC2531\..\..\..\..\..\COMPON #
+#                          ENTS\HAL\TARGET\CC2530USB\usb\library\" -I         #
+#                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 #
+#                          a\Projects\zstack\boot\BootLoad\CC2531\..\..\..\.. #
+#                          \..\COMPONENTS\HAL\TARGET\CC2530USB\usb\library\cc #
+#                          2531\" -I "D:\Texas Instruments\GIT_CORD\ZStack-CC #
+#                          2530-2.5.1a\Projects\zstack\boot\BootLoad\CC2531\. #
+#                          .\..\..\..\..\COMPONENTS\HAL\TARGET\CC2530USB\usb\ #
+#                          class_cdc\" -Ohz --require_prototypes              #
+#    List file          =  D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a #
+#                          \Projects\zstack\boot\BootLoad\CC2531\CC2531BL\Lis #
+#                          t\usb_suspend.lst                                  #
+#    Object file        =  D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a #
+#                          \Projects\zstack\boot\BootLoad\CC2531\CC2531BL\Obj #
+#                          \usb_suspend.r51                                   #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Components\hal\target\CC2530USB\usb\library\cc2531\usb_suspend.c
+      1          /***********************************************************************************
+      2          
+      3              Filename:     usb_suspend.c
+      4          
+      5              Description:  USB library common functionality.
+      6          
+      7          ***********************************************************************************/
+      8          
+      9          /// \addtogroup module_usb_suspend
+     10          /// @{
+     11          #include "usb_firmware_library_headers.h"
+
+   \                                 In  segment SFR_AN, at 0x8b
+   \   unsigned char volatile __sfr P2IFG
+   \                     P2IFG:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xa8
+   \   union <unnamed> volatile __sfr _A_IEN0
+   \                     _A_IEN0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xe8
+   \   union <unnamed> volatile __sfr _A_IRCON2
+   \                     _A_IRCON2:
+   \   000000                DS 1
+     12          #include "hal_board.h"
+     13          #include "hal_mcu.h"
+     14          #include "hal_led.h"
+     15          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     16          __xdata VFPTR pFnSuspendEnterHook=  NULL;
+   \                     pFnSuspendEnterHook:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     17          __xdata VFPTR pFnSuspendExitHook=   NULL;
+   \                     pFnSuspendExitHook:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+     18          
+     19          #if HAL_UART_USB_SUSPEND
+     20          extern void halEnterPowerMode(void);
+     21          
+     22          /** \brief Puts the chip into power mode 1 during USB suspend.
+     23           *
+     24           * This function must be called from main (i.e. not from interrupt context) upon the reception of a
+     25           * \ref USBIRQ_EVENT_SUSPEND event. To comply with the USB specification, this must happen within 10 ms
+     26           * after the event occurs. The chip will stay in power mode 1 until a USB resume or USB reset is detected
+     27           * on the USB bus, or remote wakeup is used. During this period, the MCU can only run code from
+     28           * interrupt context.
+     29           */
+     30          void usbsuspEnter(void)
+     31          {
+     32              if (pFnSuspendEnterHook!=NULL)
+     33                  pFnSuspendEnterHook();
+     34          
+     35              HAL_USB_INT_CLEAR();
+     36              HAL_USB_INT_ENABLE();
+     37          
+     38              // Disable USB clock (PLL) before entering PM1
+     39              HAL_USB_PLL_DISABLE();
+     40              
+     41              HAL_LED_CLR_1();
+     42          
+     43              do {
+     44                  // Enter PM1, in prescribed manner as explained in CC253x User's Guide
+     45                  SLEEPCMD = 0x05;
+     46                  halEnterPowerMode();
+     47              } while ( usbirqData.inSuspend );
+     48          
+     49              // .... we are now up and running again
+     50          
+     51              // First make sure that the crystal oscillator is stable
+     52              while (!CC2530_IS_XOSC_STABLE());
+     53          
+     54              // Restart the USB clock (PLL)
+     55              HAL_USB_ENABLE();
+     56          
+     57              if (pFnSuspendExitHook!=NULL)
+     58                  pFnSuspendExitHook();
+     59          } // usbsuspEnter
+     60          #endif
+     61          
+     62          
+     63          
+     64          /** \brief Attempts USB remote wakeup.
+     65           *
+     66           * This function can be called from interrupt context while the USB device is suspend mode. If the device
+     67           * is privileged to do so (see \c usbfwData.remoteWakeup and the \ref USBSR_EVENT_REMOTE_WAKEUP_ENABLED
+     68           * and \ref USBSR_EVENT_REMOTE_WAKEUP_DISABLED events), remote wakeup will be performed. Note that this
+     69           * function will block for 10 ms while the resume signal is set on the bus. Note: This function can only
+     70           * be called when the 48 MHz XOSC is stable.
+     71           *
+     72           * \return
+     73           *     \c TRUE if the remote wakeup was performed (the privilege had been granted), otherwise \c FALSE
+     74           *     (the device is still in suspend mode).
+     75           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+     76          uint8 usbsuspDoRemoteWakeup(void)
+   \                     usbsuspDoRemoteWakeup:
+     77          {
+   \   000000   74F8         MOV     A,#-0x8
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 8
+   \   000005                ; Auto size: 0
+     78             extern void halMcuWaitMs(uint16 msec);
+     79             halIntState_t   intState;
+     80          
+     81             // Make sure that it's OK
+     82             if (!usbfwData.remoteWakeup) return FALSE;
+   \   000005   90....       MOV     DPTR,#usbfwData + 18
+   \   000008   E0           MOVX    A,@DPTR
+   \   000009   7004         JNZ     ??usbsuspDoRemoteWakeup_0
+   \   00000B   7900         MOV     R1,#0x0
+   \   00000D   8026         SJMP    ??usbsuspDoRemoteWakeup_1
+     83          
+     84             HAL_ENTER_CRITICAL_SECTION(intState);
+   \                     ??usbsuspDoRemoteWakeup_0:
+   \   00000F   E5A8         MOV     A,0xa8
+   \   000011   FE           MOV     R6,A
+   \   000012   C2AF         CLR     0xa8.7
+     85          
+     86             // Make sure that the suspend loop does not power down the chip again
+     87             usbirqData.inSuspend = FALSE;
+   \   000014   75..00       MOV     usbirqData + 2,#0x0
+     88          
+     89             // Perform remote wakeup by holding the USB resume signal for 10 ms
+     90             USBPOW |= USBPOW_RESUME;
+   \   000017   906201       MOV     DPTR,#0x6201
+   \   00001A   E0           MOVX    A,@DPTR
+   \   00001B   D2E2         SETB    0xE0 /* A   */.2
+   \   00001D   F0           MOVX    @DPTR,A
+     91             halMcuWaitMs(10);
+   \   00001E                ; Setup parameters for call to function halMcuWaitMs
+   \   00001E   7A0A         MOV     R2,#0xa
+   \   000020   7B00         MOV     R3,#0x0
+   \   000022   12....       LCALL   halMcuWaitMs
+     92             USBPOW &= ~USBPOW_RESUME;
+   \   000025   E0           MOVX    A,@DPTR
+   \   000026   C2E2         CLR     0xE0 /* A   */.2
+   \   000028   F0           MOVX    @DPTR,A
+     93          
+     94             // Clear the interrupt flag
+     95             HAL_USB_INT_CLEAR();
+   \   000029   758B00       MOV     0x8b,#0x0
+   \   00002C   C2E8         CLR     0xe8.0
+     96          
+     97             HAL_EXIT_CRITICAL_SECTION(intState);
+   \   00002E   EE           MOV     A,R6
+   \   00002F   A2E7         MOV     C,0xE0 /* A   */.7
+   \   000031   92AF         MOV     0xa8.7,C
+     98          
+     99             return TRUE;
+   \   000033   7901         MOV     R1,#0x1
+   \                     ??usbsuspDoRemoteWakeup_1:
+   \   000035   7F01         MOV     R7,#0x1
+   \   000037   02....       LJMP    ?FUNC_LEAVE_XDATA
+   \   00003A                REQUIRE _A_IEN0
+   \   00003A                REQUIRE P2IFG
+   \   00003A                REQUIRE _A_IRCON2
+    100          
+    101          } // usbsuspDoRemoteWakeup
+    102          
+    103          
+    104          
+    105          //@}
+    106          /*
+    107          +------------------------------------------------------------------------------
+    108          |  Copyright 2004-2009 Texas Instruments Incorporated. All rights reserved.
+    109          |
+    110          |  IMPORTANT: Your use of this Software is limited to those specific rights
+    111          |  granted under the terms of a software license agreement between the user who
+    112          |  downloaded the software, his/her employer (which must be your employer) and
+    113          |  Texas Instruments Incorporated (the "License"). You may not use this Software
+    114          |  unless you agree to abide by the terms of the License. The License limits
+    115          |  your use, and you acknowledge, that the Software may not be modified, copied
+    116          |  or distributed unless embedded on a Texas Instruments microcontroller or used
+    117          |  solely and exclusively in conjunction with a Texas Instruments radio
+    118          |  frequency transceiver, which is integrated into your product. Other than for
+    119          |  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+    120          |  works of, modify, distribute, perform, display or sell this Software and/or
+    121          |  its documentation for any purpose.
+    122          |
+    123          |  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+    124          |  PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+    125          |  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+    126          |  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+    127          |  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+    128          |  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+    129          |  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES INCLUDING
+    130          |  BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+    131          |  CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+    132          |  SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+    133          |  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+    134          |
+    135          |  Should you have any questions regarding your right to use this Software,
+    136          |  contact Texas Instruments Incorporated at www.TI.com.
+    137          |
+    138          +------------------------------------------------------------------------------
+    139          */
+
+   Maximum stack usage in bytes:
+
+     Function              ISTACK PSTACK XSTACK
+     --------              ------ ------ ------
+     usbsuspDoRemoteWakeup     0      0      8
+       -> halMcuWaitMs         0      0     16
+
+
+   Segment part sizes:
+
+     Function/Label        Bytes
+     --------------        -----
+     P2IFG                    1
+     _A_IEN0                  1
+     _A_IRCON2                1
+     pFnSuspendEnterHook      2
+     pFnSuspendExitHook       2
+     usbsuspDoRemoteWakeup   58
+
+ 
+ 58 bytes in segment NEAR_CODE
+  3 bytes in segment SFR_AN
+  4 bytes in segment XDATA_Z
+ 
+ 58 bytes of CODE  memory
+  0 bytes of DATA  memory (+ 3 bytes shared)
+  4 bytes of XDATA memory
+
+Errors: none
+Warnings: none
