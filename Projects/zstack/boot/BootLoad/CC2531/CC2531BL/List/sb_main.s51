@@ -1,0 +1,1777 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V8.10.1.10194/W32 for 8051        18/Jan/2013  10:11:29 /
+// Copyright 2004-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Core               =  plain                                             /
+//    Code model         =  near                                              /
+//    Data model         =  large                                             /
+//    Calling convention =  xdata reentrant                                   /
+//    Constant location  =  data                                              /
+//    Dptr setup         =  1,16                                              /
+//    Source file        =  D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 /
+//                          a\Projects\zstack\boot\BootLoad\CC2531\source\sb_ /
+//                          main.c                                            /
+//    Command line       =  "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5. /
+//                          1a\Projects\zstack\boot\BootLoad\CC2531\source\sb /
+//                          _main.c" -D HAL_SB_BOOT_CODE -lC "D:\Texas        /
+//                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Project /
+//                          s\zstack\boot\BootLoad\CC2531\CC2531BL\List\"     /
+//                          -lA "D:\Texas Instruments\GIT_CORD\ZStack-CC2530- /
+//                          2.5.1a\Projects\zstack\boot\BootLoad\CC2531\CC253 /
+//                          1BL\List\" -o "D:\Texas                           /
+//                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Project /
+//                          s\zstack\boot\BootLoad\CC2531\CC2531BL\Obj\" -e   /
+//                          --debug --core=plain --dptr=16,1                  /
+//                          --data_model=large --code_model=near              /
+//                          --calling_convention=xdata_reentrant              /
+//                          --place_constants=data --nr_virtual_regs 16 -I    /
+//                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5. /
+//                          1a\Projects\zstack\boot\BootLoad\CC2531\..\Source /
+//                          \" -I "D:\Texas Instruments\GIT_CORD\ZStack-CC253 /
+//                          0-2.5.1a\Projects\zstack\boot\BootLoad\CC2531\sou /
+//                          rce\" -I "D:\Texas Instruments\GIT_CORD\ZStack-CC /
+//                          2530-2.5.1a\Projects\zstack\boot\BootLoad\CC2531\ /
+//                          ..\..\..\..\..\COMPONENTS\HAL\INCLUDE\" -I        /
+//                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5. /
+//                          1a\Projects\zstack\boot\BootLoad\CC2531\..\..\..\ /
+//                          ..\..\COMPONENTS\HAL\TARGET\_COMMON\CC2530\" -I   /
+//                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5. /
+//                          1a\Projects\zstack\boot\BootLoad\CC2531\..\..\..\ /
+//                          ..\..\COMPONENTS\HAL\TARGET\CC2530USB\" -I        /
+//                          "D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5. /
+//                          1a\Projects\zstack\boot\BootLoad\CC2531\..\..\..\ /
+//                          ..\..\COMPONENTS\HAL\TARGET\CC2530USB\usb\library /
+//                          \" -I "D:\Texas Instruments\GIT_CORD\ZStack-CC253 /
+//                          0-2.5.1a\Projects\zstack\boot\BootLoad\CC2531\..\ /
+//                          ..\..\..\..\COMPONENTS\HAL\TARGET\CC2530USB\usb\l /
+//                          ibrary\cc2531\" -I "D:\Texas                      /
+//                          Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Project /
+//                          s\zstack\boot\BootLoad\CC2531\..\..\..\..\..\COMP /
+//                          ONENTS\HAL\TARGET\CC2530USB\usb\class_cdc\" -Ohz  /
+//                          --require_prototypes                              /
+//    List file          =  D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1 /
+//                          a\Projects\zstack\boot\BootLoad\CC2531\CC2531BL\L /
+//                          ist\sb_main.s51                                   /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME sb_main
+
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "near"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ?ALLOC_XSTACK8
+        EXTERN ?FUNC_ENTER_XDATA
+        EXTERN ?FUNC_LEAVE_XDATA
+        EXTERN ?L_ADD_X
+        EXTERN ?L_MOV_X
+        EXTERN ?UL_GE_X
+        EXTERN ?V0
+        EXTERN ?XLOAD_R2345
+        EXTERN ?XSP
+        EXTERN ?XSTORE_R2345
+        EXTERN __INIT_XDATA_I
+        EXTERN __INIT_XDATA_Z
+
+        PUBWEAK ADCCON1
+        PUBWEAK ADCCON3
+        PUBWEAK ADCH
+        PUBWEAK CLKCONCMD
+        PUBWEAK CLKCONSTA
+        PUBWEAK DMA0CFGH
+        PUBWEAK DMA0CFGL
+        FUNCTION HalUARTPollUSB,021203H
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 3, STACK
+        PUBLIC HalUARTRx
+        FUNCTION HalUARTRx,0203H
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 1, STACK
+        LOCFRAME XSTACK, 8, STACK
+        PUBLIC HalUARTTx
+        FUNCTION HalUARTTx,0203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 3, STACK
+        PUBWEAK P1DIR
+        PUBWEAK P1SEL
+        PUBWEAK SLEEPCMD
+        PUBWEAK SLEEPSTA
+        PUBWEAK WDCTL
+        PUBWEAK _A_IEN0
+        PUBWEAK _A_IRCON2
+        PUBWEAK _A_P0
+        PUBWEAK _A_P1
+        PUBWEAK __Constant_0
+        PUBWEAK __Constant_1
+        PUBWEAK __Constant_1c200
+        PUBWEAK __Constant_260000
+        PUBWEAK __Constant_40000
+        PUBWEAK __Constant_ffffffff
+        PUBLIC dmaCh0
+        PUBLIC main
+        FUNCTION main,0a1a03H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        FUNCTION sblInit,021203H
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        FUNCTION sblJump,080203H
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCTION vddWait,0203H
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        
+        CFI Names cfiNames0
+        CFI StackFrame CFA_SP SP IDATA
+        CFI StackFrame CFA_PSP16 PSP16 XDATA
+        CFI StackFrame CFA_XSP16 XSP16 XDATA
+        CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+        CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+        CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+        CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+        CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+        CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+        CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+        CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+        CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+        CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+        CFI VirtualResource ?RET:16, ?RET_HIGH:8, ?RET_LOW:8
+        CFI ResourceParts PSP16 PSPH, PSPL
+        CFI ResourceParts XSP16 XSPH, XSPL
+        CFI ResourceParts ?RET ?RET_HIGH, ?RET_LOW
+        CFI EndNames cfiNames0
+        
+        CFI Common cfiCommon0 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-2
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B Undefined
+        CFI A Undefined
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 Undefined
+        CFI R1 Undefined
+        CFI R2 Undefined
+        CFI R3 Undefined
+        CFI R4 Undefined
+        CFI R5 Undefined
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon0
+        
+        
+        CFI Common cfiCommon1 Using cfiNames0
+        CFI CodeAlign 1
+        CFI DataAlign -1
+        CFI ReturnAddress ?RET CODE
+        CFI CFA_DOVERLAY Used
+        CFI CFA_IOVERLAY Used
+        CFI CFA_SP SP+-2
+        CFI CFA_PSP16 PSP16+0
+        CFI CFA_XSP16 XSP16+0
+        CFI `PSW.CY` SameValue
+        CFI `B.BR0` SameValue
+        CFI `B.BR1` SameValue
+        CFI `B.BR2` SameValue
+        CFI `B.BR3` SameValue
+        CFI `B.BR4` SameValue
+        CFI `B.BR5` SameValue
+        CFI `B.BR6` SameValue
+        CFI `B.BR7` SameValue
+        CFI `VB.BR8` SameValue
+        CFI `VB.BR9` SameValue
+        CFI `VB.BR10` SameValue
+        CFI `VB.BR11` SameValue
+        CFI `VB.BR12` SameValue
+        CFI `VB.BR13` SameValue
+        CFI `VB.BR14` SameValue
+        CFI `VB.BR15` SameValue
+        CFI VB SameValue
+        CFI B SameValue
+        CFI A SameValue
+        CFI PSW SameValue
+        CFI DPL0 SameValue
+        CFI DPH0 SameValue
+        CFI R0 SameValue
+        CFI R1 SameValue
+        CFI R2 SameValue
+        CFI R3 SameValue
+        CFI R4 SameValue
+        CFI R5 SameValue
+        CFI R6 SameValue
+        CFI R7 SameValue
+        CFI V0 SameValue
+        CFI V1 SameValue
+        CFI V2 SameValue
+        CFI V3 SameValue
+        CFI V4 SameValue
+        CFI V5 SameValue
+        CFI V6 SameValue
+        CFI V7 SameValue
+        CFI V8 SameValue
+        CFI V9 SameValue
+        CFI V10 SameValue
+        CFI V11 SameValue
+        CFI V12 SameValue
+        CFI V13 SameValue
+        CFI V14 SameValue
+        CFI V15 SameValue
+        CFI PSPH Undefined
+        CFI PSPL Undefined
+        CFI XSPH Undefined
+        CFI XSPL Undefined
+        CFI ?RET Concat
+        CFI ?RET_HIGH Frame(CFA_SP, 2)
+        CFI ?RET_LOW Frame(CFA_SP, 1)
+        CFI EndCommon cfiCommon1
+        
+        EXTERN usbirqHandler
+        FUNCTION usbirqHandler,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN usbfwResetHandler
+        FUNCTION usbfwResetHandler,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN usbfwSetupHandler
+        FUNCTION usbfwSetupHandler,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN sbImgValid
+        FUNCTION sbImgValid,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN sbExec
+        FUNCTION sbExec,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN usbfwInit
+        FUNCTION usbfwInit,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN usbirqInit
+        FUNCTION usbirqInit,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN currentLineCoding
+        EXTERN usbirqData
+
+// D:\Texas Instruments\GIT_CORD\ZStack-CC2530-2.5.1a\Projects\zstack\boot\BootLoad\CC2531\source\sb_main.c
+//    1 /**************************************************************************************************
+//    2   Filename:       sb_main.c
+//    3   Revised:        $Date: 2012-03-29 12:09:02 -0700 (Thu, 29 Mar 2012) $
+//    4   Revision:       $Revision: 29943 $
+//    5 
+//    6   Description:    This module contains the main functionality of a Boot Loader for CC2531.
+//    7                   It is a minimal subset of functionality from ZMain.c, OnBoard.c and various
+//    8                   _hal_X.c modules for the CC2530USB target.
+//    9 
+//   10 
+//   11   Copyright 2009-2012 Texas Instruments Incorporated. All rights reserved.
+//   12 
+//   13   IMPORTANT: Your use of this Software is limited to those specific rights
+//   14   granted under the terms of a software license agreement between the user
+//   15   who downloaded the software, his/her employer (which must be your employer)
+//   16   and Texas Instruments Incorporated (the "License").  You may not use this
+//   17   Software unless you agree to abide by the terms of the License. The License
+//   18   limits your use, and you acknowledge, that the Software may not be modified,
+//   19   copied or distributed unless embedded on a Texas Instruments microcontroller
+//   20   or used solely and exclusively in conjunction with a Texas Instruments radio
+//   21   frequency transceiver, which is integrated into your product.  Other than for
+//   22   the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+//   23   works of, modify, distribute, perform, display or sell this Software and/or
+//   24   its documentation for any purpose.
+//   25 
+//   26   YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+//   27   PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+//   28   INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+//   29   NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+//   30   TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+//   31   NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+//   32   LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+//   33   INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+//   34   OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+//   35   OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+//   36   (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+//   37 
+//   38   Should you have any questions regarding your right to use this Software,
+//   39   contact Texas Instruments Incorporated at www.TI.com.
+//   40 **************************************************************************************************/
+//   41 
+//   42 /* ------------------------------------------------------------------------------------------------
+//   43  *                                          Includes
+//   44  * ------------------------------------------------------------------------------------------------
+//   45  */
+//   46 
+//   47 #include "hal_board_cfg.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,080H
+// union <unnamed> volatile __sfr _A_P0
+_A_P0:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,090H
+// union <unnamed> volatile __sfr _A_P1
+_A_P1:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,09dH
+// unsigned char volatile __sfr SLEEPSTA
+SLEEPSTA:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,09eH
+// unsigned char volatile __sfr CLKCONSTA
+CLKCONSTA:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0a8H
+// union <unnamed> volatile __sfr _A_IEN0
+_A_IEN0:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0b4H
+// unsigned char volatile __sfr ADCCON1
+ADCCON1:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0b6H
+// unsigned char volatile __sfr ADCCON3
+ADCCON3:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0bbH
+// unsigned char volatile __sfr ADCH
+ADCH:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0beH
+// unsigned char volatile __sfr SLEEPCMD
+SLEEPCMD:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0c6H
+// unsigned char volatile __sfr CLKCONCMD
+CLKCONCMD:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0c9H
+// unsigned char volatile __sfr WDCTL
+WDCTL:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0d4H
+// unsigned char volatile __sfr DMA0CFGL
+DMA0CFGL:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0d5H
+// unsigned char volatile __sfr DMA0CFGH
+DMA0CFGH:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0e8H
+// union <unnamed> volatile __sfr _A_IRCON2
+_A_IRCON2:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f4H
+// unsigned char volatile __sfr P1SEL
+P1SEL:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0feH
+// unsigned char volatile __sfr P1DIR
+P1DIR:
+        DATA8
+        DS 1
+//   48 #include "hal_adc.h"
+//   49 #include "hal_dma.h"
+//   50 #include "hal_flash.h"
+//   51 #include "hal_types.h"
+//   52 #include "sb_exec.h"
+//   53 #include "sb_main.h"
+//   54 #include "usb_board_cfg.h"
+//   55 #include "usb_interrupt.h"
+//   56 
+//   57 /* ------------------------------------------------------------------------------------------------
+//   58  *                                          Constants
+//   59  * ------------------------------------------------------------------------------------------------
+//   60  */
+//   61 
+//   62 /* Delay jump to valid RC code, waiting for a force boot or force run indication via the
+//   63  * physical transport or button press indication. Set to zero to jump immediately, this
+//   64  * necessitates the RC to invalidate checksum/shadow to force boot mode.
+//   65  */
+//   66 #if !defined SB_UART_DELAY
+//   67 #define SB_UART_DELAY  0x260000  // About 1 minute.
+//   68 #endif
+//   69 
+//   70 /* ------------------------------------------------------------------------------------------------
+//   71  *                                           Macros
+//   72  * ------------------------------------------------------------------------------------------------
+//   73  */
+//   74 
+//   75 #if HAL_KEY
+//   76 #define SB1_PRESS  (P1_2 == 0)
+//   77 #define SB2_PRESS  (P1_3 == 0)
+//   78 #else
+//   79 #define SB1_PRESS   0
+//   80 #define SB2_PRESS   0
+//   81 #endif
+//   82 
+//   83 #if HAL_LED
+//   84 #define SB_INIT_LEDS() st (  \ 
+//   85   HAL_TURN_OFF_LED1();  \ 
+//   86   LED1_DDR |= LED1_BV;  \ 
+//   87   HAL_TURN_OFF_LED2();  \ 
+//   88   LED2_DDR |= LED2_BV;  \ 
+//   89 )
+//   90 #define SB_TURN_OFF_LED1()  HAL_TURN_OFF_LED1()
+//   91 #define SB_TURN_ON_LED1()   HAL_TURN_ON_LED1()
+//   92 #define SB_TOGGLE_LED1()    HAL_TOGGLE_LED1()
+//   93 #define SB_TURN_OFF_LED2()  HAL_TURN_OFF_LED2()
+//   94 #define SB_TURN_ON_LED2()   HAL_TURN_ON_LED2()
+//   95 #define SB_TOGGLE_LED2()    HAL_TOGGLE_LED2()
+//   96 #else
+//   97 #define SB_TURN_OFF_LED1()
+//   98 #define SB_TURN_ON_LED1()
+//   99 #define SB_TOGGLE_LED1()
+//  100 #define SB_TURN_OFF_LED2()
+//  101 #define SB_TURN_ON_LED2()
+//  102 #define SB_TOGGLE_LED2()
+//  103 #endif
+//  104 
+//  105 #if !defined ResetWasWatchDog
+//  106 #define ResetWasWatchDog ((SLEEPSTA & 0x18) == 0x10)
+//  107 #endif
+//  108 
+//  109 /* ------------------------------------------------------------------------------------------------
+//  110  *                                       Global Variables
+//  111  * ------------------------------------------------------------------------------------------------
+//  112  */
+//  113 
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+//  114 halDMADesc_t dmaCh0;
+dmaCh0:
+        DS 8
+        REQUIRE __INIT_XDATA_Z
+//  115 
+//  116 /* ------------------------------------------------------------------------------------------------
+//  117  *                                       Local Functions
+//  118  * ------------------------------------------------------------------------------------------------
+//  119  */
+//  120 
+//  121 static void sblExec(void);
+//  122 static void sblInit(void);
+//  123 static void sblJump(void);
+//  124 static void sblWait(void);
+//  125 static void vddWait(uint8 vdd);
+//  126 
+//  127 #include "_hal_uart_usb.c"
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// static uint8 halUartRxH
+halUartRxH:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// static uint8 halUartRxT
+halUartRxT:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// static uint8 halUartRxQ[256]
+halUartRxQ:
+        DS 256
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// static uint8 halUartTxH
+halUartTxH:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// static uint8 halUartTxT
+halUartTxT:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// static uint8 halUartTxQ[256]
+halUartTxQ:
+        DS 256
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+// static __near_func __xdata_reentrant void HalUARTPollUSB(void)
+HalUARTPollUSB:
+        CFI Block cfiBlock0 Using cfiCommon0
+        CFI Function HalUARTPollUSB
+        CODE
+        FUNCALL HalUARTPollUSB, usbirqHandler
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL HalUARTPollUSB, usbfwResetHandler
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL HalUARTPollUSB, usbfwSetupHandler
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 3)
+        CFI CFA_SP SP+-3
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        ; Saved register size: 2
+        ; Auto size: 0
+        SJMP    ??HalUARTPollUSB_0
+??HalUARTPollUSB_1:
+        ; Setup parameters for call to function usbirqHandler
+        LCALL   usbirqHandler
+??HalUARTPollUSB_0:
+        MOV     C,0xe8.0
+        JC      ??HalUARTPollUSB_1
+        MOV     R0,usbirqData+0x0
+        MOV     A,R0
+        ANL     A,#0x4
+        JZ      ??HalUARTPollUSB_2
+        MOV     R0,#usbirqData
+        MOV     A,@R0
+        ANL     A,#0xfb
+        MOV     @R0,A
+        ; Setup parameters for call to function usbfwResetHandler
+        LCALL   usbfwResetHandler
+??HalUARTPollUSB_2:
+        MOV     R0,usbirqData+0x0
+        MOV     A,R0
+        ANL     A,#0x10
+        JZ      ??HalUARTPollUSB_3
+        MOV     R0,#usbirqData
+        MOV     A,@R0
+        ANL     A,#0xef
+        MOV     @R0,A
+        ; Setup parameters for call to function usbfwSetupHandler
+        LCALL   usbfwSetupHandler
+??HalUARTPollUSB_3:
+        MOV     R0,usbirqData+0x0
+        MOV     A,R0
+        MOV     C,0xE0 /* A   */.0
+        JNC     ??HalUARTPollUSB_4
+        MOV     R0,#usbirqData
+        ANL     A,#0xfc
+        MOV     @R0,A
+??HalUARTPollUSB_4:
+        MOV     DPTR,#0x620e
+        MOVX    A,@DPTR
+        MOV     R2,A
+        MOV     A,#0x4
+        MOVX    @DPTR,A
+        MOV     DPTR,#0x6214
+        MOVX    A,@DPTR
+        MOV     C,0xE0 /* A   */.0
+        JNC     ??HalUARTPollUSB_5
+        MOV     A,0xa8
+        MOV     R0,A
+        CLR     0xa8.7
+        MOV     DPTR,#0x6216
+        MOVX    A,@DPTR
+        MOV     R1,A
+        INC     DPTR
+        MOVX    A,@DPTR
+        MOV     A,R1
+        MOV     R3,A
+        MOV     A,R0
+        MOV     C,0xE0 /* A   */.7
+        MOV     0xa8.7,C
+        SJMP    ??HalUARTPollUSB_6
+??HalUARTPollUSB_7:
+        MOV     DPTR,#0x6228
+        MOVX    A,@DPTR
+        PUSH    A
+        CFI CFA_SP SP+-5
+        MOV     DPTR,#halUartRxT
+        MOVX    A,@DPTR
+        MOV     R0,A
+        MOV     A,#halUartRxQ & 0xff
+        ADD     A,R0
+        MOV     DPL,A
+        MOV     A,#(halUartRxQ >> 8) & 0xff
+        ADDC    A,#0x0
+        MOV     DPH,A
+        POP     A
+        CFI CFA_SP SP+-4
+        MOVX    @DPTR,A
+        MOV     DPTR,#halUartRxT
+        MOVX    A,@DPTR
+        INC     A
+        MOVX    @DPTR,A
+??HalUARTPollUSB_6:
+        MOV     A,R3
+        MOV     R4,A
+        MOV     A,#-0x1
+        ADD     A,R4
+        DEC     R3
+        INC     A
+        JNZ     ??HalUARTPollUSB_7
+        MOV     DPTR,#0x6214
+        CLR     A
+        MOVX    @DPTR,A
+??HalUARTPollUSB_5:
+        MOV     A,R2
+        MOV     DPTR,#0x620e
+        MOVX    @DPTR,A
+        MOVX    A,@DPTR
+        MOV     R5,A
+        MOV     A,#0x4
+        MOVX    @DPTR,A
+        MOV     DPTR,#0x6211
+        MOVX    A,@DPTR
+        MOV     C,0xE0 /* A   */.0
+        JC      ??HalUARTPollUSB_8
+        MOV     DPTR,#halUartTxT
+        MOVX    A,@DPTR
+        MOV     R0,A
+        MOV     DPTR,#halUartTxH
+        MOVX    A,@DPTR
+        XRL     A,R0
+        JZ      ??HalUARTPollUSB_8
+        MOV     R2,#0x40
+??HalUARTPollUSB_9:
+        MOV     DPTR,#halUartTxH
+        MOVX    A,@DPTR
+        MOV     R0,A
+        MOV     A,#halUartTxQ & 0xff
+        ADD     A,R0
+        MOV     DPL,A
+        MOV     A,#(halUartTxQ >> 8) & 0xff
+        ADDC    A,#0x0
+        MOV     DPH,A
+        MOVX    A,@DPTR
+        MOV     DPTR,#0x6228
+        MOVX    @DPTR,A
+        MOV     DPTR,#halUartTxH
+        MOVX    A,@DPTR
+        INC     A
+        MOVX    @DPTR,A
+        INC     R0
+        MOV     DPTR,#halUartTxT
+        MOVX    A,@DPTR
+        XRL     A,R0
+        JZ      ??HalUARTPollUSB_10
+        DEC     R2
+        MOV     A,R2
+        JNZ     ??HalUARTPollUSB_9
+??HalUARTPollUSB_10:
+        MOV     DPTR,#0x6211
+        MOV     A,#0x1
+        MOVX    @DPTR,A
+??HalUARTPollUSB_8:
+        MOV     A,R5
+        MOV     DPTR,#0x620e
+        MOVX    @DPTR,A
+        CFI EndBlock cfiBlock0
+        REQUIRE ?Subroutine0
+        REQUIRE _A_IRCON2
+        REQUIRE _A_IEN0
+        ; // Fall through to label ?Subroutine0
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+?Subroutine0:
+        CFI Block cfiBlock1 Using cfiCommon0
+        CFI NoFunction
+        CFI CFA_SP SP+-4
+        CFI DPL0 Frame(CFA_SP, 3)
+        CFI DPH0 Frame(CFA_SP, 4)
+        POP     DPH
+        CFI CFA_SP SP+-3
+        CFI DPH0 SameValue
+        POP     DPL
+        CFI CFA_SP SP+-2
+        CFI DPL0 SameValue
+        RET
+        CFI EndBlock cfiBlock1
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+// __near_func __xdata_reentrant uint8 HalUARTRx(uint8 *, uint8)
+HalUARTRx:
+        CFI Block cfiBlock2 Using cfiCommon0
+        CFI Function HalUARTRx
+        CODE
+        MOV     A,#-0x8
+        LCALL   ?FUNC_ENTER_XDATA
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 8)
+        ; Saved register size: 8
+        ; Auto size: 0
+        MOV     A,R1
+        MOV     R6,A
+        MOV     R1,#0x0
+        SJMP    ??HalUARTRx_0
+??HalUARTRx_1:
+        MOV     DPTR,#halUartRxH
+        MOVX    A,@DPTR
+        MOV     R4,A
+        MOV     A,#halUartRxQ & 0xff
+        ADD     A,R4
+        MOV     DPL,A
+        MOV     A,#(halUartRxQ >> 8) & 0xff
+        ADDC    A,#0x0
+        MOV     DPH,A
+        MOVX    A,@DPTR
+        MOV     DPL,R2
+        MOV     DPH,R3
+        MOVX    @DPTR,A
+        MOV     DPTR,#halUartRxH
+        MOVX    A,@DPTR
+        INC     A
+        LCALL   ?Subroutine1
+??CrossCallReturnLabel_0:
+        INC     R1
+??HalUARTRx_0:
+        MOV     DPTR,#halUartRxH
+        MOVX    A,@DPTR
+        MOV     R0,A
+        MOV     DPTR,#halUartRxT
+        MOVX    A,@DPTR
+        XRL     A,R0
+        JZ      ??HalUARTRx_2
+        MOV     A,R1
+        CLR     C
+        SUBB    A,R6
+        JC      ??HalUARTRx_1
+??HalUARTRx_2:
+        MOV     R7,#0x1
+        LJMP    ?FUNC_LEAVE_XDATA
+        CFI EndBlock cfiBlock2
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+// __near_func __xdata_reentrant void HalUARTTx(uint8 *, uint8)
+HalUARTTx:
+        CFI Block cfiBlock3 Using cfiCommon0
+        CFI Function HalUARTTx
+        CODE
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 3)
+        CFI CFA_SP SP+-3
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        ; Saved register size: 2
+        ; Auto size: 0
+        SJMP    ??HalUARTTx_0
+??HalUARTTx_1:
+        MOV     DPL,R2
+        MOV     DPH,R3
+        MOVX    A,@DPTR
+        PUSH    A
+        CFI CFA_SP SP+-5
+        MOV     DPTR,#halUartTxT
+        MOVX    A,@DPTR
+        MOV     R4,A
+        MOV     A,#halUartTxQ & 0xff
+        ADD     A,R4
+        MOV     DPL,A
+        MOV     A,#(halUartTxQ >> 8) & 0xff
+        ADDC    A,#0x0
+        MOV     DPH,A
+        POP     A
+        CFI CFA_SP SP+-4
+        LCALL   ?Subroutine1
+??CrossCallReturnLabel_1:
+        MOV     DPTR,#halUartTxT
+        MOVX    A,@DPTR
+        INC     A
+        MOVX    @DPTR,A
+??HalUARTTx_0:
+        MOV     A,R1
+        MOV     R0,A
+        MOV     A,#-0x1
+        ADD     A,R0
+        DEC     R1
+        INC     A
+        JNZ     ??HalUARTTx_1
+        SJMP    ?Subroutine0
+        CFI EndBlock cfiBlock3
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+?Subroutine1:
+        CFI Block cfiCond4 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_0
+        CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+        CFI VB load(1, XDATA, add(CFA_XSP16, literal(-7)))
+        CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+        CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-4)))
+        CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-3)))
+        CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+        CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+        CFI CFA_SP SP+0
+        CFI CFA_XSP16 add(XSP16, 8)
+        CFI Block cfiCond5 Using cfiCommon0
+        CFI (cfiCond5) NoFunction
+        CFI (cfiCond5) Conditional ??CrossCallReturnLabel_1
+        CFI (cfiCond5) DPL0 Frame(CFA_SP, 3)
+        CFI (cfiCond5) DPH0 Frame(CFA_SP, 4)
+        CFI (cfiCond5) CFA_SP SP+-4
+        CFI Block cfiPicker6 Using cfiCommon1
+        CFI (cfiPicker6) NoFunction
+        CFI (cfiPicker6) Picker
+        MOVX    @DPTR,A
+        MOV     DPL,R2
+        MOV     DPH,R3
+        INC     DPTR
+        MOV     R2,DPL
+        MOV     R3,DPH
+        RET
+        CFI EndBlock cfiCond4
+        CFI EndBlock cfiCond5
+        CFI EndBlock cfiPicker6
+//  128 
+//  129 /**************************************************************************************************
+//  130  * @fn          main
+//  131  *
+//  132  * @brief       C-code main functionality.
+//  133  *
+//  134  * input parameters
+//  135  *
+//  136  * None.
+//  137  *
+//  138  * output parameters
+//  139  *
+//  140  * None.
+//  141  *
+//  142  * @return      None.
+//  143  **************************************************************************************************
+//  144  */
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+//  145 void main(void)
+main:
+        CFI Block cfiBlock7 Using cfiCommon0
+        CFI Function main
+        CODE
+//  146 {
+        FUNCALL main, vddWait
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, sbImgValid
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, sblJump
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, sblInit
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, HalUARTPollUSB
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, HalUARTRx
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, sblJump
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, sblInit
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, vddWait
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, HalUARTPollUSB
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, sblJump
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, HalUARTPollUSB
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, sbExec
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL main, sbImgValid
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 1, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 1, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        ; Auto size: 1
+        MOV     A,#-0x1
+        LCALL   ?ALLOC_XSTACK8
+        CFI CFA_XSP16 add(XSP16, 1)
+//  147   vddWait(VDD_MIN_RUN);
+        ; Setup parameters for call to function vddWait
+        MOV     R1,#0x4a
+        LCALL   vddWait
+//  148   HAL_BOARD_INIT();
+        ANL     0xbe,#0xfb
+??main_0:
+        MOV     A,0x9d
+        MOV     C,0xE0 /* A   */.6
+        JNC     ??main_0
+        NOP
+        MOV     R0,#-0x8
+        MOV     R1,#0x1
+??main_1:
+        NOP
+        MOV     A,R0
+        ADD     A,#-0x1
+        DEC     R0
+        MOV     A,R1
+        ADDC    A,#-0x1
+        MOV     R1,A
+        MOV     A,R0
+        ORL     A,R1
+        JNZ     ??main_1
+        MOV     0xc6,#-0x80
+??main_2:
+        MOV     A,#-0x80
+        XRL     A,0x9e
+        JNZ     ??main_2
+        ORL     0xbe,#0x4
+        MOV     DPTR,#0x6270
+        MOV     A,#0x8
+        MOVX    @DPTR,A
+        LCALL   ?Subroutine2
+//  149 
+//  150   if (sbImgValid())
+??CrossCallReturnLabel_2:
+        ; Setup parameters for call to function sbImgValid
+        LCALL   sbImgValid
+        MOV     A,R1
+        JZ      ??main_3
+//  151   {
+//  152     if ((SB_UART_DELAY == 0) || ResetWasWatchDog)
+        MOV     A,0x9d
+        ANL     A,#0x18
+        XRL     A,#0x10
+        JNZ     ??main_4
+//  153     {
+//  154       sblJump();
+        ; Setup parameters for call to function sblJump
+        LCALL   sblJump
+//  155     }
+//  156 
+//  157     sblInit();
+??main_4:
+        ; Setup parameters for call to function sblInit
+        LCALL   sblInit
+//  158     sblWait();
+        MOV     DPTR,#__Constant_260000
+        MOV     R0,#?V0 + 4
+        LCALL   ?L_MOV_X
+        SJMP    ??main_5
+??main_6:
+        CLR     0x80.6
+        CLR     0x90.0
+??main_5:
+        ; Setup parameters for call to function HalUARTPollUSB
+        LCALL   HalUARTPollUSB
+        ; Setup parameters for call to function HalUARTRx
+        MOV     R1,#0x1
+        MOV     DPL,?XSP + 0
+        MOV     DPH,?XSP + 1
+        MOV     R2,DPL
+        MOV     R3,DPH
+        LCALL   HalUARTRx
+        MOV     A,R1
+        JZ      ??main_7
+        MOVX    A,@DPTR
+        XRL     A,#0xf8
+        JNZ     ??main_8
+        SETB    0x90.0
+        CLR     0x80.6
+        SJMP    ??main_9
+??main_8:
+        MOVX    A,@DPTR
+        XRL     A,#0x7
+        JNZ     ??main_7
+        MOV     DPTR,#__Constant_0
+        MOV     R0,#?V0 + 4
+        LCALL   ?L_MOV_X
+??main_7:
+        MOV     ?V0 + 0,?V0 + 4
+        MOV     ?V0 + 1,?V0 + 5
+        MOV     ?V0 + 2,?V0 + 6
+        MOV     ?V0 + 3,?V0 + 7
+        MOV     DPTR,#__Constant_ffffffff
+        MOV     R0,#?V0 + 4
+        LCALL   ?L_ADD_X
+        MOV     A,?V0 + 0
+        ORL     A,?V0 + 1
+        ORL     A,?V0 + 2
+        ORL     A,?V0 + 3
+        JNZ     ??main_10
+        ; Setup parameters for call to function sblJump
+        LCALL   sblJump
+??main_10:
+        MOV     ?V0 + 1,?V0 + 5
+        MOV     A,?V0 + 1
+        ANL     A,#0x20
+        JNZ     ??main_6
+        SETB    0x90.0
+        SETB    0x80.6
+        SJMP    ??main_5
+//  159   }
+//  160   else
+//  161   {
+//  162     sblInit();
+??main_3:
+        ; Setup parameters for call to function sblInit
+        LCALL   sblInit
+//  163   }
+//  164 
+//  165   vddWait(VDD_MIN_NV);
+??main_9:
+        ; Setup parameters for call to function vddWait
+        MOV     R1,#0x4e
+        LCALL   vddWait
+//  166   sblExec();
+        MOV     DPTR,#__Constant_0
+        MOV     R0,#?V0 + 4
+        LCALL   ?L_MOV_X
+        SJMP    ??main_11
+??main_12:
+        CLR     0x90.0
+        SETB    0x80.6
+        MOV     DPTR,#__Constant_0
+        MOV     R0,#?V0 + 4
+        LCALL   ?L_MOV_X
+??main_13:
+        ; Setup parameters for call to function HalUARTPollUSB
+        LCALL   HalUARTPollUSB
+        MOV     DPTR,#__Constant_1
+        MOV     R0,#?V0 + 4
+        LCALL   ?L_ADD_X
+        MOV     DPTR,#__Constant_40000
+        MOV     R0,#?V0 + 4
+        LCALL   ?UL_GE_X
+        JNC     ??main_13
+        ; Setup parameters for call to function sblJump
+        LCALL   sblJump
+??main_11:
+        ; Setup parameters for call to function HalUARTPollUSB
+        LCALL   HalUARTPollUSB
+        ; Setup parameters for call to function sbExec
+        LCALL   sbExec
+        MOV     A,R1
+        JZ      ??main_14
+        ; Setup parameters for call to function sbImgValid
+        LCALL   sbImgValid
+        MOV     A,R1
+        JNZ     ??main_12
+??main_14:
+        MOV     ?V0 + 1,?V0 + 5
+        MOV     DPTR,#__Constant_1
+        MOV     R0,#?V0 + 4
+        LCALL   ?L_ADD_X
+        MOV     A,?V0 + 1
+        ANL     A,#0x40
+        JZ      ??main_11
+        MOV     C,0x90.0
+        JNC     ??main_15
+        CLR     0x90.0
+        SJMP    ??main_11
+??main_15:
+        SETB    0x90.0
+        SJMP    ??main_11
+        CFI EndBlock cfiBlock7
+        REQUIRE SLEEPCMD
+        REQUIRE SLEEPSTA
+        REQUIRE CLKCONCMD
+        REQUIRE CLKCONSTA
+        REQUIRE _A_P1
+        REQUIRE P1DIR
+        REQUIRE _A_P0
+        REQUIRE _A_IEN0
+        REQUIRE WDCTL
+//  167   HAL_SYSTEM_RESET();
+//  168 }
+//  169 
+//  170 /**************************************************************************************************
+//  171  * @fn          sblExec
+//  172  *
+//  173  * @brief       Infinite SBL execute loop that jumps upon receiving a code enable.
+//  174  *
+//  175  * input parameters
+//  176  *
+//  177  * None.
+//  178  *
+//  179  * output parameters
+//  180  *
+//  181  * None.
+//  182  *
+//  183  * @return      None.
+//  184  **************************************************************************************************
+//  185  */
+//  186 static void sblExec(void)
+//  187 {
+//  188   uint32 dlyCnt = 0;
+//  189 
+//  190   while (1)
+//  191   {
+//  192     HalUARTPollUSB();
+//  193 
+//  194     if (sbExec() && sbImgValid())
+//  195     {
+//  196       SB_TURN_ON_LED1();
+//  197       SB_TURN_ON_LED2();
+//  198       // Delay to allow the SB_ENABLE_CMD response to be flushed.
+//  199       for (dlyCnt = 0; dlyCnt < 0x40000; dlyCnt++)
+//  200       {
+//  201         HalUARTPollUSB();
+//  202       }
+//  203 
+//  204       sblJump();
+//  205     }
+//  206     else if (dlyCnt++ & 0x4000)
+//  207     {
+//  208       SB_TOGGLE_LED1();
+//  209     }
+//  210   }
+//  211 }
+//  212 
+//  213 /**************************************************************************************************
+//  214  * @fn          sblInit
+//  215  *
+//  216  * @brief       SBL initialization.
+//  217  *
+//  218  * input parameters
+//  219  *
+//  220  * None.
+//  221  *
+//  222  * output parameters
+//  223  *
+//  224  * None.
+//  225  *
+//  226  * @return      None.
+//  227  */
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+//  228 static void sblInit(void)
+sblInit:
+        CFI Block cfiBlock8 Using cfiCommon0
+        CFI Function sblInit
+        CODE
+//  229 {
+        FUNCALL sblInit, usbfwInit
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL sblInit, usbirqInit
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH    DPL
+        CFI DPL0 Frame(CFA_SP, 3)
+        CFI CFA_SP SP+-3
+        PUSH    DPH
+        CFI DPH0 Frame(CFA_SP, 4)
+        CFI CFA_SP SP+-4
+        ; Saved register size: 2
+        ; Auto size: 0
+//  230   HAL_USB_PULLUP_DISABLE();
+        ANL     0xf4,#0xfe
+        CLR     0x90.0
+        ORL     0xfe,#0x1
+//  231   /* This is in place of calling HalDmaInit() which would require init of the other 4 DMA
+//  232    * descriptors in addition to just Channel 0.
+//  233    */
+//  234   HAL_DMA_SET_ADDR_DESC0(&dmaCh0);
+        MOV     A,#(dmaCh0 >> 8) & 0xff
+        MOV     0xd5,A
+        MOV     0xd4,#dmaCh0 & 0xff
+//  235   HalUARTInitUSB();
+        MOV     DPTR,#__Constant_1c200
+        LCALL   ?XLOAD_R2345
+        MOV     DPTR,#currentLineCoding
+        LCALL   ?XSTORE_R2345
+        MOV     DPTR,#currentLineCoding + 4
+        CLR     A
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOVX    @DPTR,A
+        INC     DPTR
+        MOV     A,#0x8
+        MOVX    @DPTR,A
+        ; Setup parameters for call to function usbfwInit
+        LCALL   usbfwInit
+        ; Setup parameters for call to function usbirqInit
+        MOV     R2,#-0x1
+        MOV     R3,#-0x1
+        LCALL   usbirqInit
+        ANL     0xf4,#0xfe
+        SETB    0x90.0
+        ORL     0xfe,#0x1
+//  236   SB_INIT_LEDS();
+        LCALL   ?Subroutine2
+//  237 }
+??CrossCallReturnLabel_3:
+        LJMP    ?Subroutine0
+        CFI EndBlock cfiBlock8
+        REQUIRE P1SEL
+        REQUIRE _A_P1
+        REQUIRE P1DIR
+        REQUIRE DMA0CFGH
+        REQUIRE DMA0CFGL
+        REQUIRE _A_P0
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+?Subroutine2:
+        CFI Block cfiCond9 Using cfiCommon0
+        CFI NoFunction
+        CFI Conditional ??CrossCallReturnLabel_2
+        CFI CFA_XSP16 add(XSP16, 1)
+        CFI Block cfiCond10 Using cfiCommon0
+        CFI (cfiCond10) NoFunction
+        CFI (cfiCond10) Conditional ??CrossCallReturnLabel_3
+        CFI (cfiCond10) DPL0 Frame(CFA_SP, 3)
+        CFI (cfiCond10) DPH0 Frame(CFA_SP, 4)
+        CFI (cfiCond10) CFA_SP SP+-4
+        CFI Block cfiPicker11 Using cfiCommon1
+        CFI (cfiPicker11) NoFunction
+        CFI (cfiPicker11) Picker
+        SETB    0x90.0
+        ORL     0xfe,#0x1
+        CLR     0x80.6
+        MOV     0x80,0x80
+        RET
+        CFI EndBlock cfiCond9
+        CFI EndBlock cfiCond10
+        CFI EndBlock cfiPicker11
+//  238 
+//  239 /**************************************************************************************************
+//  240  * @fn          sblJump
+//  241  *
+//  242  * @brief       Execute a simple long jump from non-banked SBL code to non-banked RC code space.
+//  243  *
+//  244  * input parameters
+//  245  *
+//  246  * None.
+//  247  *
+//  248  * output parameters
+//  249  *
+//  250  * None.
+//  251  *
+//  252  * @return      None.
+//  253  */
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+//  254 static void sblJump(void)
+sblJump:
+        CFI Block cfiBlock12 Using cfiCommon0
+        CFI Function sblJump
+        CODE
+//  255 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//  256   SB_TURN_ON_LED1();
+        CLR     0x90.0
+//  257   SB_TURN_ON_LED2();
+        SETB    0x80.6
+//  258   while (SB1_PRESS || SB2_PRESS);
+//  259   SB_TURN_OFF_LED1();
+        SETB    0x90.0
+//  260   SB_TURN_OFF_LED2();
+        CLR     0x80.6
+//  261   asm("LJMP 0x2000\n");  // Immediate jump to run-code.
+        LJMP 0x2000
+//  262   HAL_SYSTEM_RESET();
+        CLR     0xa8.7
+        MOV     0xc9,#-0x55
+        MOV     0xc9,#0x5b
+??sblJump_0:
+        SJMP    ??sblJump_0
+        CFI EndBlock cfiBlock12
+        REQUIRE _A_P1
+        REQUIRE _A_P0
+        REQUIRE _A_IEN0
+        REQUIRE WDCTL
+//  263 }
+//  264 
+//  265 /**************************************************************************************************
+//  266  * @fn          sblWait
+//  267  *
+//  268  * @brief       A timed-out wait loop that exits early upon receiving a force code/sbl byte.
+//  269  *
+//  270  * input parameters
+//  271  *
+//  272  * None.
+//  273  *
+//  274  * output parameters
+//  275  *
+//  276  * None.
+//  277  *
+//  278  * @return      None.
+//  279  **************************************************************************************************
+//  280  */
+//  281 static void sblWait(void)
+//  282 {
+//  283   uint32 dlyCnt = SB_UART_DELAY;
+//  284 
+//  285   while (1)
+//  286   {
+//  287     uint8 ch;
+//  288 
+//  289     HalUARTPollUSB();
+//  290     if (HalUARTRx(&ch, 1))
+//  291     {
+//  292       if (ch == SB_FORCE_BOOT)
+//  293       {
+//  294         break;
+//  295       }
+//  296       else if (ch == SB_FORCE_RUN)
+//  297       {
+//  298         dlyCnt = 0;
+//  299       }
+//  300     }
+//  301 
+//  302     if (SB1_PRESS)
+//  303     {
+//  304       break;
+//  305     }
+//  306 
+//  307     if (SB2_PRESS || (dlyCnt-- == 0))
+//  308     {
+//  309       sblJump();
+//  310     }
+//  311 
+//  312     // RR-xing LED display while waiting.
+//  313     if (dlyCnt & 0x2000)
+//  314     {
+//  315       SB_TURN_OFF_LED2();
+//  316       SB_TURN_ON_LED1();
+//  317     }
+//  318     else
+//  319     {
+//  320       SB_TURN_OFF_LED1();
+//  321       SB_TURN_ON_LED2();
+//  322     }
+//  323   }
+//  324 
+//  325   SB_TURN_OFF_LED1();
+//  326   SB_TURN_OFF_LED2();
+//  327 }
+//  328 
+//  329 /**************************************************************************************************
+//  330  * @fn          vddWait
+//  331  *
+//  332  * @brief       Loop waiting for 16 reads of the Vdd over the requested limit.
+//  333  *
+//  334  * input parameters
+//  335  *
+//  336  * @param       vdd - Vdd level to wait for.
+//  337  *
+//  338  * output parameters
+//  339  *
+//  340  * None.
+//  341  *
+//  342  * @return      None.
+//  343  **************************************************************************************************
+//  344  */
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+//  345 static void vddWait(uint8 vdd)
+vddWait:
+        CFI Block cfiBlock13 Using cfiCommon0
+        CFI Function vddWait
+        CODE
+//  346 {
+        ; Saved register size: 0
+        ; Auto size: 0
+//  347   uint8 cnt = 16;
+        MOV     R0,#0x10
+//  348 
+//  349   do {
+//  350     do {
+//  351       ADCCON3 = 0x0F;
+??vddWait_0:
+        MOV     0xb6,#0xf
+//  352       while (!(ADCCON1 & 0x80));
+??vddWait_1:
+        MOV     A,0xb4
+        MOV     C,0xE0 /* A   */.7
+        JNC     ??vddWait_1
+//  353     } while (ADCH < vdd);
+        MOV     A,0xbb
+        CLR     C
+        SUBB    A,R1
+        JC      ??vddWait_0
+//  354   } while (--cnt);
+        DEC     R0
+        MOV     A,R0
+        JNZ     ??vddWait_0
+//  355 }
+        RET
+        CFI EndBlock cfiBlock13
+        REQUIRE ADCCON3
+        REQUIRE ADCCON1
+        REQUIRE ADCH
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA32
+__Constant_260000:
+        DS 4
+        REQUIRE `?<Initializer for __Constant_260000>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for __Constant_260000>`:
+        DATA32
+        DD 2490368
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA32
+__Constant_0:
+        DS 4
+        REQUIRE `?<Initializer for __Constant_0>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for __Constant_0>`:
+        DATA32
+        DD 0
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA32
+__Constant_ffffffff:
+        DS 4
+        REQUIRE `?<Initializer for __Constant_ffffffff>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for __Constant_ffffffff>`:
+        DATA32
+        DD 4294967295
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA32
+__Constant_1:
+        DS 4
+        REQUIRE `?<Initializer for __Constant_1>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for __Constant_1>`:
+        DATA32
+        DD 1
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA32
+__Constant_40000:
+        DS 4
+        REQUIRE `?<Initializer for __Constant_40000>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for __Constant_40000>`:
+        DATA32
+        DD 262144
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+        DATA32
+__Constant_1c200:
+        DS 4
+        REQUIRE `?<Initializer for __Constant_1c200>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for __Constant_1c200>`:
+        DATA32
+        DD 115200
+
+        END
+//  356 
+//  357 /**************************************************************************************************
+//  358 */
+// 
+// 755 bytes in segment NEAR_CODE
+//  16 bytes in segment SFR_AN
+//  24 bytes in segment XDATA_I
+//  24 bytes in segment XDATA_ID
+// 524 bytes in segment XDATA_Z
+// 
+// 755 bytes of CODE  memory (+ 24 bytes shared)
+//   0 bytes of DATA  memory (+ 16 bytes shared)
+// 524 bytes of XDATA memory (+ 24 bytes shared)
+//
+//Errors: none
+//Warnings: none

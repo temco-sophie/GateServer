@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>4029996812</fileChecksum>
+  <configuration>
+    <name>CC2531 Boot Loader</name>
+    <outputs>
+      <file>$PROJ_DIR$\..\Source\sb_exec.c</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_interrupt.lst</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_defs.h</file>
+      <file>$PROJ_DIR$\source\sb_main.h</file>
+      <file>$PROJ_DIR$\..\Source\sb_exec.h</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC2530.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_board.h</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_suspend.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_cdc_descriptor.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\List\sb_exec.lst</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_framework.lst</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_suspend.pbi</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\hal_flash.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_suspend.lst</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_standard_requests.pbi</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_descriptor_parser.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC2531.h</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl-pli-nlxd-1e16x01.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_framework.s51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_cdc_hooks.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_framework.pbi</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_interrupt.pbi</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_firmware_library_config.s51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_descriptor_parser.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\sb_exec.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_cdc_hooks.pbi</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\sb_exec.pbi</file>
+      <file>$PROJ_DIR$\source\sb_main.c</file>
+      <file>$PROJ_DIR$\CC2531BL\Exe\Boot.hex</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_standard_requests.s51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_framework.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\interrupt_stubs.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\List\sb_main.lst</file>
+      <file>$TOOLKIT_DIR$\config\devices\Texas Instruments\lnk51ew_CC2531F256.xcl</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\sb_main.pbi</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_firmware_library_config.pbi</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_suspend.s51</file>
+      <file>$PROJ_DIR$\CC2531BL\List\sb_exec.s51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\hal_flash.pbi</file>
+      <file>$PROJ_DIR$\CC2531BL\List\hal_flash.lst</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_firmware_library_config.lst</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_interrupt.r51</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_standard_requests.lst</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_firmware_library_config.r51</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$PROJ_DIR$\CC2531BL\Exe\Boot.d51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\usb_standard_requests.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\List\sb_main.s51</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_cdc_hooks.s51</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\_hal_uart_usb.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_adc.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_led.h</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_descriptor_parser.s51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\sb_main.r51</file>
+      <file>$PROJ_DIR$\CC2531BL\Obj\Boot.pbd</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_interrupt.s51</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_descriptor_parser.lst</file>
+      <file>$PROJ_DIR$\CC2531BL\List\usb_cdc_hooks.lst</file>
+      <file>$PROJ_DIR$\CC2531BL\List\hal_flash.s51</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_flash.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_uart.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\hal_board_cfg.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\hal_flash.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\hal_dma.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\hal_mcu.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\hal_types.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\class_cdc\usb_cdc.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\class_cdc\usb_cdc_descriptor.s51</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\class_cdc\usb_cdc_hooks.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\class_cdc\usb_cdc_hooks.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\class_cdc\usb_firmware_library_config.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\class_cdc\usb_firmware_library_config.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\class_cdc\usb_firmware_library_headers.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\cc2531\usb_board_cfg.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\cc2531\usb_interrupt.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\cc2531\usb_suspend.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\usb_descriptor.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\usb_descriptor_parser.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\usb_descriptor_parser.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\usb_framework.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\usb_framework.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\usb_framework_structs.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\usb_interrupt.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\usb_reg.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\usb_standard_requests.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\usb_standard_requests.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\target\CC2530USB\usb\library\usb_suspend.h</file>
+      <file>$PROJ_DIR$\source\interrupt_stubs.s51</file>
+      <file>$PROJ_DIR$\..\..\..\Tools\CC2530DB\sb-boot.xcl</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\..\Source\sb_exec.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 9 24</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 26</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 62 65 2 66 5 74 16 84 60 6 4 3</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 62 65 2 66 5 74 16 84 60 6 4 3</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 28</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\source\sb_main.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 48 32 54</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 62 65 2 66 5 74 16 84 51 6 64 60 4 3 83 82 72 50 61 67 70 73 77 79 81 86 87</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 62 65 2 66 5 74 16 84 51 6 64 60 4 3 83 82 72 50 61 67 70 73 77 79 81 86 87</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\CC2531BL\Exe\Boot.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 33 12 31 24 54 8 19 23 44 30 41 47 7 17</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\CC2531BL\Exe\Boot.d51</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 89 12 31 24 54 8 19 23 44 30 41 47 7 17</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\CC2531BL\Obj\Boot.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 38 26 34 25 15 35 20 21 14 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\hal_flash.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 59 39 12</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 62 65 2 66 5 74 16 84 64 6 60</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 62 65 2 66 5 74 16 84 64 6 60</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\class_cdc\usb_cdc_descriptor.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 8</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>A8051</name>
+          <file> 77 67</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\class_cdc\usb_cdc_hooks.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 49 58 19</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 67 70 66 73 72 77 82 79 83 81 74 62 65 2 5 16 84 86 87</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 67 70 66 73 72 77 82 79 83 81 74 62 65 2 5 16 84 86 87</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\class_cdc\usb_firmware_library_config.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 22 40 44</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\cc2531\usb_interrupt.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 56 1 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87 60 6 52</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87 60 6 52</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\cc2531\usb_suspend.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 36 13 7</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 11</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87 6 52</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87 6 52</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\usb_descriptor_parser.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 53 57 23</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87 60 6 45 42</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87 60 6 45 42</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\usb_framework.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 18 10 30</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 20</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530USB\usb\library\usb_standard_requests.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 29 43 47</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87 6</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 73 72 77 82 66 79 83 81 74 62 65 2 5 16 84 86 87 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\source\interrupt_stubs.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 31</file>
+        </tool>
+      </outputs>
+    </file>
+  </configuration>
+</project>
+
+
