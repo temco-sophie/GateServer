@@ -423,6 +423,11 @@ void mmc_write_event( uint8 modbusId, uint8 *data, uint8 event)
         _itoa( sec, temp5, 10);
         sprintf( pBuf, "Event: Time Result\r\nModBus ID:%s\r\nResult:%s Sec %s MilliSec %s MicroSec\r\nTime:%s\r\n", temp2, temp5, temp4, temp3, pUTCTime);
         break;
+      case SD_JUMP_EVENT:
+        sec = BUILD_UINT16( data[1], data[0]);
+        _itoa( sec, temp3, 10);
+        sprintf( pBuf, "Event: Jump Record\r\nModBus ID:%s\r\nResult:%s cm\r\nTime:%s\r\n", temp2, temp3, pUTCTime);
+        break;
       default:
         sprintf( pBuf, "UNKNOW EVENT\r\nMODBUS ID:%s\r\nDATA:%s\r\nTime:%s", temp2, temp1, pUTCTime);
         break;

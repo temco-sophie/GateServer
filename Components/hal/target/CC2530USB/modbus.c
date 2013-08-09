@@ -77,6 +77,10 @@ uint8 modbus_user_id = 0;
 uint8 modbus_charging_stat = 1;
 uint16 modbus_left_quantity = 0;
 uint8 modbus_left_hours = 2;
+#if defined ( JUMP_MACHINE_DONGLE)
+  uint16 modbus_jump_height = 0;
+  uint16 modbus_jump_record = 0;
+#endif
 
 bool restroe_factory_setting = FALSE;
 
@@ -446,6 +450,13 @@ static void modbus_process_msg( uint8 *data_buffer, uint8 len)
           modbus_send_byte( zero, CRC_NO);
           modbus_send_byte( modbus_left_hours, CRC_NO);
         }
+#if defined (JUMP_MACHINE_DONGLE)
+        else if( i + address == MODBUS_JUMP_HEIGHT)
+        {
+          modbus_send_byte( ((modbus_jump_height >> 8) & 0xff) , CRC_NO);
+          modbus_send_byte( modbus_jump_height, CRC_NO);
+        }
+#endif
         else if( i + address == MODBUS_GATE_NUMS)
         {
           modbus_send_byte( zero, CRC_NO);
