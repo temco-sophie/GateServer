@@ -18,10 +18,11 @@ ARM modifications by Ingo Busker 2005
 #define  SD_RFID_EVENT    0
 #define  SD_TIME_EVENT    1
 #define  SD_TIME_RESULT   2
+#define  SD_JUMP_EVENT    3
 
 
 #ifndef MMC_WRITE_ENABLE
-  #define MMC_WRITE_ENABLE  TRUE
+  #define MMC_WRITE_ENABLE  FALSE
 #endif
 /*********************************************************************************
  * MACROS

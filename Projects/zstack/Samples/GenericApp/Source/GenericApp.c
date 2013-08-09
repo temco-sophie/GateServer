@@ -431,6 +431,7 @@ uint16 GenericApp_ProcessEvent( uint8 task_id, uint16 events )
   if( events & GENERIC_WRITE_MMC)
   {
     mmc_write_event( mmc_modbusId, dataBuf, mmc_event);
+    return ( events ^ BATTERY_MANAGEMENT);
   }
 #else
     
@@ -684,9 +685,12 @@ static void GenericApp_MessageMSGCB( afIncomingMSGPacket_t *pkt )
     }
     break;
     
-#if defined ( JUMP_MACHINE)
+#if defined ( JUMP_MACHINE_DONGLE)
   case JUMP_HEIGHT_RECORD:
-      mmc_event = SD_TIME_EVENT;
+      modbus_jump_height = BUILD_UINT16( pkt->cmd.Data[2], pkt->cmd.Data[3]);
+      mmc_modbusId = 253;
+      mmc_event = SD_JUMP_EVENT;
+      osal_memcpy( dataBuf, pkt->cmd.Data, 4);
       osal_start_timerEx( GenericApp_TaskID, GENERIC_WRITE_MMC, WRITE_MMC_TIMEOUT);
     break;
 #endif
@@ -747,14 +751,7 @@ uint8 jump_num = 0;
       }
     }
     break;
-  case GATE_JUMP_RECORD:
-    if( pkt->cmd.DataLength)
-    {
-#if defined ( JUMP_MACHINE)
-      
-#endif
-    }  
-    break;    
+    
 #else     // GATE收到RFID或时间消息
     case GATE_TIME_RECORD:
       MT_BuildAndSendZToolResponse( 0x67, 0x14, pkt->cmd.DataLength, pkt->cmd.Data);

@@ -21,6 +21,8 @@
  */
 extern uint8 CRClo, CRChi;
 extern uint8 modbus_id;
+extern uint16 modbus_jump_height ;
+extern uint16 modbus_jump_record ;
 extern bool restroe_factory_setting;
 /*********************************************************************
  * GLOBAL FUNCTIONS
@@ -58,7 +60,10 @@ enum {
   MODBUS_CHARGING_STAT,
   MODBUS_LEFT_QUANTITY,
   MODBUS_LEFT_HOURS,
-  
+#if defined ( JUMP_MACHINE_DONGLE)
+  MODBUS_JUMP_HEIGHT,
+  MODBUS_JUMP_RECORD,
+#endif
   MODBUS_GATE_NUMS,
   MODBUS_GATE_ADDRESS_1,
   MODBUS_GATE_ADDRESS_2,
